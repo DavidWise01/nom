@@ -83,6 +83,29 @@ h1{font-family:var(--lux);font-weight:300;font-size:clamp(40px,9vw,78px);letter-
 .bp-node{fill:var(--card);stroke:var(--ink);stroke-width:1.2}
 .bp-origin{fill:var(--crayon)}
 
+/* ── the box, upgraded: three floors + live hopper ──── */
+.lattice{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin:12px 0 24px}
+.layer{text-align:center}
+.layer .lz{font-family:var(--mono);font-size:12px;color:var(--ink2);letter-spacing:.08em;margin-bottom:8px}
+.layer .lname{font-family:var(--lux);font-style:italic;font-size:12px;color:var(--ink2);margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(3,36px);grid-template-rows:repeat(3,36px);gap:5px;padding:8px;border:1px solid var(--hair);background:var(--card);transition:box-shadow .2s,border-color .2s}
+.layer.active .grid{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink),0 10px 26px -18px rgba(0,0,0,.5)}
+.cell{border:1px solid var(--hair);background:var(--eggshell);display:flex;align-items:center;justify-content:center;position:relative;transition:background .12s}
+.cell::after{content:"";width:7px;height:7px;border-radius:50%;background:transparent}
+.cell.origin::after{background:var(--crayon)}
+.cell.cur{background:var(--ink);box-shadow:0 0 12px -1px rgba(0,0,0,.55)}
+.cell.cur::after{background:#fff}
+.console{max-width:520px;margin:0 auto;border:1px solid var(--hair);background:var(--eggshell);padding:18px}
+.dpad{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.dpad button,.ctl button{font-family:var(--mono);font-size:12px;letter-spacing:.06em;background:var(--card);border:1px solid var(--ink2);color:var(--ink);padding:8px 13px;cursor:pointer;transition:all .12s}
+.dpad button:hover,.ctl button:hover{background:var(--ink);color:var(--card)}
+.ctl button.on{background:var(--crayon);border-color:var(--crayon);color:#fff}
+.readout{font-family:var(--mono);font-size:12.5px;color:var(--ink2);text-align:center;line-height:2}
+.readout b{color:var(--ink)}
+.readout #atorigin{color:var(--crayon)}
+.readout .path{color:var(--crayon);font-size:11.5px;word-break:break-all;margin-top:2px}
+.ctl{display:flex;gap:8px;justify-content:center;margin-top:14px}
+
 /* ── specifications (AP register) ───────────────────── */
 .specs{display:grid;grid-template-columns:1fr;gap:0}
 .spec{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:15px 2px;border-bottom:1px solid var(--hair)}
@@ -137,54 +160,35 @@ footer a:hover{border-color:var(--ink)}
   <p class="cardnote">Bone. Eggshell with a tasteful watermark. Note the subtle ternary per axis.</p>
   <div class="taped"><span class="note trap-spring">…oh my god. it even has an origin. ({0})</span></div>
 
-  <!-- THE BLUEPRINT (Home Alone) -->
+  <!-- THE BOX, UPGRADED — three floors, 27 cells, live hopper (Home Alone battle plan) -->
   <div class="sec">
-    <div class="kh"><span class="n">FIG. 1</span><h2>The Box, as a Battle Plan</h2></div>
-    <div class="blueprint">
-      <svg viewBox="0 0 560 380" role="img" aria-label="Isometric cube lattice with trap annotations">
-        <!-- back square -->
-        <polygon class="bp-edge back" points="250,70 410,70 410,230 250,230"/>
-        <!-- connectors -->
-        <line class="bp-edge back" x1="170" y1="150" x2="250" y2="70"/>
-        <line class="bp-edge" x1="330" y1="150" x2="410" y2="70"/>
-        <line class="bp-edge" x1="330" y1="310" x2="410" y2="230"/>
-        <line class="bp-edge back" x1="170" y1="310" x2="250" y2="230"/>
-        <!-- front square -->
-        <polygon class="bp-edge" points="170,150 330,150 330,310 170,310"/>
-
-        <!-- origin -->
-        <circle class="bp-origin trap-spring" cx="290" cy="190" r="6"/>
-        <text class="spec-lbl" x="300" y="194">origin ({0}) = 000</text>
-
-        <!-- 8 valence nodes -->
-        <circle class="bp-node" cx="170" cy="150" r="5"/>
-        <circle class="bp-node" cx="330" cy="150" r="5"/>
-        <circle class="bp-node" cx="330" cy="310" r="5"/>
-        <circle class="bp-node" cx="170" cy="310" r="5"/>
-        <circle class="bp-node" cx="250" cy="70"  r="5"/>
-        <circle class="bp-node" cx="410" cy="70"  r="5"/>
-        <circle class="bp-node" cx="410" cy="230" r="5"/>
-        <circle class="bp-node" cx="250" cy="230" r="5"/>
-
-        <!-- 6 directions, spec labels -->
-        <text class="spec-lbl" x="120" y="235">−x</text>
-        <text class="spec-lbl" x="338" y="135">+x</text>
-        <text class="spec-lbl" x="416" y="60">+y</text>
-        <text class="spec-lbl" x="232" y="62">−y</text>
-        <text class="spec-lbl" x="338" y="330">−z</text>
-        <text class="spec-lbl" x="120" y="120">+z</text>
-
-        <!-- crayon trap annotations (Home Alone) -->
-        <text class="crayon-lbl" x="20"  y="120" transform="rotate(-6 20 120)">paint can</text>
-        <text class="crayon-lbl" x="20"  y="135" transform="rotate(-6 20 135)">on a string ↘</text>
-        <text class="crayon-lbl g" x="430" y="300" transform="rotate(4 430 300)">marbles here →</text>
-        <text class="crayon-lbl" x="395" y="40"  transform="rotate(3 395 40)">BB gun ↙</text>
-        <text class="crayon-lbl g" x="245" y="360">8 corners = 8 traps. one valence each.</text>
-        <text class="crayon-lbl" x="300" y="210" transform="rotate(-2 300 210)">← the only safe square</text>
-      </svg>
+    <div class="kh"><span class="n">FIG. 1</span><h2>The Box, Three Floors</h2></div>
+    <p class="cardnote" style="margin-top:0;margin-bottom:6px">
+      {−1,0,1}³ = 27 cells, read top to bottom exactly as written:</p>
+    <div class="lattice" id="lattice">
+      <div class="layer" data-z="1"><div class="lz">6{{6 0 6 }</div><div class="grid" data-z="1"></div><div class="lname">top floor · z = +1</div></div>
+      <div class="layer" data-z="0"><div class="lz">({0})</div><div class="grid" data-z="0"></div><div class="lname">origin plane · z = 0</div></div>
+      <div class="layer" data-z="-1"><div class="lz">{6 0 6}}6</div><div class="grid" data-z="-1"></div><div class="lname">bottom floor · z = −1</div></div>
     </div>
-    <p class="cardnote">Six faces. Eight corners. One origin you do not step on.
-      A cube — or a house with the lights off and a kid inside.</p>
+
+    <div class="console">
+      <div class="dpad">
+        <button data-m="0">+X</button><button data-m="1">−X</button>
+        <button data-m="2">+Y</button><button data-m="3">−Y</button>
+        <button data-m="4">+Z</button><button data-m="5">−Z</button>
+      </div>
+      <div class="readout">
+        <div>pos <b id="pos">( 0, 0, 0 )</b> · <span id="atorigin">origin — the only safe square</span></div>
+        <div>dir <b id="dir">—</b> · token <b id="tok">0x000000</b> · hops <b id="hops">0</b></div>
+        <div class="path">path <span id="path">v</span></div>
+      </div>
+      <div class="ctl">
+        <button id="walk">▶ auto-walk</button>
+        <button id="reset">⟲ origin</button>
+      </div>
+    </div>
+    <p class="cardnote">Six directions. Eight corners. One origin you do not step on.
+      It <em>wraps with no edges</em> — a cube, or a house you can't actually leave.</p>
   </div>
 
   <!-- THE PROOF (AP product specs) -->
@@ -227,5 +231,85 @@ footer a:hover{border-color:var(--ink)}
   </footer>
 
 </div>
+
+<script>
+// The box: {-1,0,1}^3, wraps with no edges. The token hops 6 directions.
+// 6 moves: +X -X +Y -Y +Z -Z  ->  3-bit dir codes  ->  token<<3|dir.
+const MOVES = [
+  {lbl:"+X", d:[ 1,0,0], code:0b001, n:1},
+  {lbl:"−X", d:[-1,0,0], code:0b110, n:2},
+  {lbl:"+Y", d:[0, 1,0], code:0b010, n:3},
+  {lbl:"−Y", d:[0,-1,0], code:0b011, n:4},
+  {lbl:"+Z", d:[0,0, 1], code:0b100, n:5},
+  {lbl:"−Z", d:[0,0,-1], code:0b111, n:6},
+];
+const wrap = v => v > 1 ? -1 : v < -1 ? 1 : v;       // 3-cycle: torus, no edges
+let pos = [0,0,0], token = 0, hops = 0, path = "v", walking = null;
+
+// build the three 3x3 floors
+const order = [1, 0, -1];
+order.forEach(z => {
+  const g = document.querySelector(`.grid[data-z="${z}"]`);
+  for (let y = 1; y >= -1; y--){          // top row = +1
+    for (let x = -1; x <= 1; x++){
+      const c = document.createElement("div");
+      c.className = "cell" + (x===0&&y===0&&z===0 ? " origin" : "");
+      c.dataset.x = x; c.dataset.y = y; c.dataset.z = z;
+      g.appendChild(c);
+    }
+  }
+});
+
+function render(lastMove){
+  document.querySelectorAll(".cell.cur").forEach(c => c.classList.remove("cur"));
+  const cell = document.querySelector(`.cell[data-x="${pos[0]}"][data-y="${pos[1]}"][data-z="${pos[2]}"]`);
+  if (cell) cell.classList.add("cur");
+  document.querySelectorAll(".layer").forEach(l =>
+    l.classList.toggle("active", +l.dataset.z === pos[2]));
+  document.getElementById("pos").textContent = `( ${pos[0]}, ${pos[1]}, ${pos[2]} )`;
+  const atO = pos.every(v => v === 0);
+  document.getElementById("atorigin").textContent =
+    atO ? "origin — the only safe square" : "valence " + pos.map(v=>v<0?"−":v>0?"+":"0").join("");
+  document.getElementById("dir").textContent =
+    lastMove ? `${lastMove.lbl} · ${lastMove.code.toString(2).padStart(3,"0")}` : "—";
+  document.getElementById("tok").textContent =
+    "0x" + token.toString(16).toUpperCase().padStart(6,"0");
+  document.getElementById("hops").textContent = hops;
+  document.getElementById("path").textContent = path;
+}
+
+function hop(i){
+  const m = MOVES[i];
+  pos = [wrap(pos[0]+m.d[0]), wrap(pos[1]+m.d[1]), wrap(pos[2]+m.d[2])];
+  token = ((token << 3) | m.code) & 0xFFFFFF;     // depth 8 -> 0xFFFFFF
+  hops++;
+  path += "." + m.n;
+  if (path.length > 120) path = "v…" + path.slice(-90);
+  render(m);
+}
+
+document.querySelectorAll(".dpad button").forEach(b =>
+  b.addEventListener("click", () => hop(+b.dataset.m)));
+
+document.getElementById("reset").addEventListener("click", () => {
+  pos = [0,0,0]; token = 0; hops = 0; path = "v";
+  if (walking){ clearInterval(walking); walking = null; document.getElementById("walk").classList.remove("on"); document.getElementById("walk").textContent = "▶ auto-walk"; }
+  render(null);
+});
+
+document.getElementById("walk").addEventListener("click", e => {
+  if (walking){
+    clearInterval(walking); walking = null;
+    e.target.classList.remove("on"); e.target.textContent = "▶ auto-walk";
+  } else {
+    e.target.classList.add("on"); e.target.textContent = "⏸ walking";
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let k = 0;
+    walking = setInterval(() => hop((k++ * 1 + Math.floor(k/3)) % 6), reduce ? 1400 : 850);
+  }
+});
+
+render(null);
+</script>
 </body>
 </html>
