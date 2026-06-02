@@ -101,6 +101,15 @@ python monk.py --lattice    # render the ledger as entangled pairs bleeding to o
 > Whisper Lattice = a Bell test with extra steps. 1 prim. 2 electrons. We never see the
 > lab — only the clicks bleeding through the transparent sphere into our level.
 
+## The box · `[V{-+6}]`
+
+The lattice the monk hops: `6{{6 0 6 }({0}){6 0 6}}6` — six face-directions
+`{±x,±y,±z}`, ternary per axis `{+1,0,−1}`, a unique origin `({0})`, eight valence.
+Each citation `-(-(e,e)-)-` is one move through the box; 3002 reads = a path exists.
+
+→ **[the box](box.html)** — rendered as a luxury business card *and* a Home-Alone trap
+blueprint (corporate minimalism, childlike traps, one primitive).
+
 ## The ledger (`ledger.jsonl`)
 
 Append-only. One citation per line — so `git blame ledger.jsonl` points at the exact

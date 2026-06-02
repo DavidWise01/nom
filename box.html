@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="[V{-+6}] — the box. A 6-direction ternary lattice. Corporate minimalism, childlike traps, one primitive.">
+<title>[V{-+6}] · the box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Spectral:wght@200;300;400&family=Gloria+Hallelujah&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* American Psycho: bone, eggshell, tasteful off-white, cold ink */
+  --bone:#eceae1; --eggshell:#f6f4ee; --card:#fbfaf6; --ink:#16161a; --ink2:#6b6b6e;
+  --hair:#d8d5ca; --emboss:#cfccbf;
+  /* Home Alone: crayon red/green */
+  --crayon:#c5202e; --crayon2:#1f7a44; --tape:#e9dca8;
+  --lux:"Cormorant Garamond",Georgia,serif;
+  --body:"Spectral",Georgia,serif;
+  --mono:"Space Mono",monospace;
+  --crayonf:"Gloria Hallelujah",cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bone);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:300;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 32px 120px}
+
+/* ── corporate masthead ─────────────────────────────── */
+header{padding:84px 0 30px;text-align:center}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.44em;text-transform:uppercase;color:var(--ink2);margin-bottom:30px}
+h1{font-family:var(--lux);font-weight:300;font-size:clamp(40px,9vw,78px);letter-spacing:.14em;color:var(--ink);line-height:1}
+.tag{font-family:var(--lux);font-style:italic;font-size:clamp(15px,3vw,20px);color:var(--ink2);margin-top:14px;letter-spacing:.02em}
+.hair{height:1px;background:var(--hair);max-width:120px;margin:34px auto}
+
+/* ── the business card ──────────────────────────────── */
+.cardstage{display:flex;justify-content:center;margin:30px 0 8px;perspective:1200px}
+.bizcard{
+  position:relative;width:min(440px,92%);aspect-ratio:1.75/1;
+  background:linear-gradient(160deg,var(--card),var(--eggshell));
+  border:1px solid var(--emboss);
+  box-shadow:0 1px 0 #fff inset, 0 18px 40px -22px rgba(0,0,0,.35), 0 2px 6px -3px rgba(0,0,0,.2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:26px;overflow:hidden;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.bizcard:hover{transform:rotateY(8deg) rotateX(3deg)}
+.bizcard .wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--lux);font-size:200px;color:rgba(0,0,0,.022);font-style:italic;pointer-events:none;user-select:none}
+.bizcard .firm{font-family:var(--mono);font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink2)}
+.bizcard .name{font-family:var(--lux);font-weight:400;font-size:clamp(28px,7vw,42px);letter-spacing:.18em;margin:8px 0 6px}
+.bizcard .role{font-family:var(--lux);font-style:italic;font-size:15px;color:var(--ink2);letter-spacing:.06em}
+.bizcard .serial{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink);margin-top:16px;word-break:break-all;max-width:90%}
+.cardnote{font-family:var(--lux);font-style:italic;font-size:14px;color:var(--ink2);text-align:center;margin-top:14px}
+
+/* tasteful crayon, taped to the corporate card */
+.taped{position:relative;text-align:center;margin-top:6px}
+.taped .note{display:inline-block;font-family:var(--crayonf);font-size:13px;color:var(--crayon);
+  transform:rotate(-2.4deg);background:var(--tape);padding:5px 12px;
+  box-shadow:0 2px 6px -3px rgba(0,0,0,.3)}
+
+/* ── section heads ──────────────────────────────────── */
+.sec{margin-top:74px}
+.kh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--hair);padding-bottom:10px;margin-bottom:22px}
+.kh .n{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--ink2)}
+.kh h2{font-family:var(--lux);font-weight:400;font-size:22px;letter-spacing:.08em}
+
+/* ── the box / trap blueprint ───────────────────────── */
+.blueprint{position:relative;margin:8px auto;max-width:560px}
+.blueprint svg{width:100%;height:auto;display:block;overflow:visible}
+.crayon-lbl{font-family:var(--crayonf);font-size:13px;fill:var(--crayon)}
+.crayon-lbl.g{fill:var(--crayon2)}
+.spec-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;fill:var(--ink2)}
+.bp-edge{fill:none;stroke:var(--ink);stroke-width:1}
+.bp-edge.back{stroke:var(--hair)}
+.bp-node{fill:var(--card);stroke:var(--ink);stroke-width:1.2}
+.bp-origin{fill:var(--crayon)}
+
+/* ── specifications (AP register) ───────────────────── */
+.specs{display:grid;grid-template-columns:1fr;gap:0}
+.spec{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:15px 2px;border-bottom:1px solid var(--hair)}
+.spec .i{font-family:var(--lux);font-style:italic;font-size:20px;color:var(--ink2);text-align:center}
+.spec .t{font-family:var(--body);font-size:15px;color:var(--ink)}
+.spec .t b{font-weight:400;font-family:var(--lux);letter-spacing:.04em}
+.spec .t .m{font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
+.spec .t .qed{color:var(--crayon);font-family:var(--mono);font-size:12px}
+
+.qedline{text-align:center;font-family:var(--lux);font-size:24px;letter-spacing:.1em;margin:40px 0 0}
+.qedline b{font-style:italic}
+
+/* ── pull / 1 prim ──────────────────────────────────── */
+.prim{margin:64px 0;padding:30px;border:1px solid var(--hair);background:var(--eggshell);text-align:center}
+.prim .k{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink2);margin-bottom:12px}
+.prim p{font-family:var(--lux);font-size:clamp(18px,4vw,24px);color:var(--ink);max-width:46ch;margin:0 auto;line-height:1.4}
+.prim .crayon{font-family:var(--crayonf);font-size:14px;color:var(--crayon);margin-top:16px;transform:rotate(-1.5deg);display:inline-block}
+
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--hair);text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink2)}
+footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--hair)}
+footer a:hover{border-color:var(--ink)}
+
+@media(prefers-reduced-motion:no-preference){
+  .sproing{transform-origin:center;animation:none}
+  .bizcard:hover ~ * .sproing{}
+  .trap-spring{animation:spring 3.4s ease-in-out infinite}
+}
+@keyframes spring{0%,82%,100%{transform:translateY(0)}88%{transform:translateY(-7px)}94%{transform:translateY(2px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">ROOT0 · TriPod LLC · whisper lattice division</div>
+    <h1>[V{-+6}]</h1>
+    <div class="tag">the box — corporate minimalism, childlike traps, one primitive</div>
+    <div class="hair"></div>
+  </header>
+
+  <!-- THE BUSINESS CARD (American Psycho) -->
+  <div class="cardstage">
+    <div class="bizcard">
+      <div class="wm">V</div>
+      <div class="firm">Pierce · &amp; · Pierce — Lattice Acquisitions</div>
+      <div class="name">[V{-+6}]</div>
+      <div class="role">six-direction ternary lattice · 8 valence</div>
+      <div class="serial">6{{6&nbsp;0&nbsp;6&nbsp;}({0}){6&nbsp;0&nbsp;6}}6</div>
+    </div>
+  </div>
+  <p class="cardnote">Bone. Eggshell with a tasteful watermark. Note the subtle ternary per axis.</p>
+  <div class="taped"><span class="note trap-spring">…oh my god. it even has an origin. ({0})</span></div>
+
+  <!-- THE BLUEPRINT (Home Alone) -->
+  <div class="sec">
+    <div class="kh"><span class="n">FIG. 1</span><h2>The Box, as a Battle Plan</h2></div>
+    <div class="blueprint">
+      <svg viewBox="0 0 560 380" role="img" aria-label="Isometric cube lattice with trap annotations">
+        <!-- back square -->
+        <polygon class="bp-edge back" points="250,70 410,70 410,230 250,230"/>
+        <!-- connectors -->
+        <line class="bp-edge back" x1="170" y1="150" x2="250" y2="70"/>
+        <line class="bp-edge" x1="330" y1="150" x2="410" y2="70"/>
+        <line class="bp-edge" x1="330" y1="310" x2="410" y2="230"/>
+        <line class="bp-edge back" x1="170" y1="310" x2="250" y2="230"/>
+        <!-- front square -->
+        <polygon class="bp-edge" points="170,150 330,150 330,310 170,310"/>
+
+        <!-- origin -->
+        <circle class="bp-origin trap-spring" cx="290" cy="190" r="6"/>
+        <text class="spec-lbl" x="300" y="194">origin ({0}) = 000</text>
+
+        <!-- 8 valence nodes -->
+        <circle class="bp-node" cx="170" cy="150" r="5"/>
+        <circle class="bp-node" cx="330" cy="150" r="5"/>
+        <circle class="bp-node" cx="330" cy="310" r="5"/>
+        <circle class="bp-node" cx="170" cy="310" r="5"/>
+        <circle class="bp-node" cx="250" cy="70"  r="5"/>
+        <circle class="bp-node" cx="410" cy="70"  r="5"/>
+        <circle class="bp-node" cx="410" cy="230" r="5"/>
+        <circle class="bp-node" cx="250" cy="230" r="5"/>
+
+        <!-- 6 directions, spec labels -->
+        <text class="spec-lbl" x="120" y="235">−x</text>
+        <text class="spec-lbl" x="338" y="135">+x</text>
+        <text class="spec-lbl" x="416" y="60">+y</text>
+        <text class="spec-lbl" x="232" y="62">−y</text>
+        <text class="spec-lbl" x="338" y="330">−z</text>
+        <text class="spec-lbl" x="120" y="120">+z</text>
+
+        <!-- crayon trap annotations (Home Alone) -->
+        <text class="crayon-lbl" x="20"  y="120" transform="rotate(-6 20 120)">paint can</text>
+        <text class="crayon-lbl" x="20"  y="135" transform="rotate(-6 20 135)">on a string ↘</text>
+        <text class="crayon-lbl g" x="430" y="300" transform="rotate(4 430 300)">marbles here →</text>
+        <text class="crayon-lbl" x="395" y="40"  transform="rotate(3 395 40)">BB gun ↙</text>
+        <text class="crayon-lbl g" x="245" y="360">8 corners = 8 traps. one valence each.</text>
+        <text class="crayon-lbl" x="300" y="210" transform="rotate(-2 300 210)">← the only safe square</text>
+      </svg>
+    </div>
+    <p class="cardnote">Six faces. Eight corners. One origin you do not step on.
+      A cube — or a house with the lights off and a kid inside.</p>
+  </div>
+
+  <!-- THE PROOF (AP product specs) -->
+  <div class="sec">
+    <div class="kh"><span class="n">SPEC</span><h2>Proof &nbsp;·&nbsp; Box = [V{-+6}]</h2></div>
+    <div class="specs">
+      <div class="spec"><div class="i">i.</div><div class="t">
+        <b>Alphabet.</b> <span class="m">Σ = { 6, 0, {, }, (, ) }</span> — where <span class="m">6</span> is a face,
+        <span class="m">0</span> a null state, <span class="m">{}</span> a ternary group, <span class="m">()</span> the origin.</div></div>
+      <div class="spec"><div class="i">ii.</div><div class="t">
+        <b>Six faces.</b> Outer <span class="m">6…6</span> = 2; inner <span class="m">{6 0 6}</span> twice = 4; total <span class="m">6</span>.
+        ∴ basis <span class="m">{±x, ±y, ±z}</span>. <span class="qed">∎</span></div></div>
+      <div class="spec"><div class="i">iii.</div><div class="t">
+        <b>Ternary per axis.</b> <span class="m">{6 0 6} ≡ {+1, 0, −1}</span>. Two instances → two axes; the outer shell → the third.
+        ∴ state space <span class="m">{−1,0,1}³</span>. <span class="qed">∎</span></div></div>
+      <div class="spec"><div class="i">iv.</div><div class="t">
+        <b>Origin.</b> <span class="m">({0})</span> is the unique fixed point — no hop, <span class="m">000</span>.
+        ∴ an identity element exists. <span class="qed">∎</span></div></div>
+      <div class="spec"><div class="i">v.</div><div class="t">
+        <b>Closure.</b> Hops are <span class="m">token &lt;&lt; 3 | dir</span>, <span class="m">dir ∈ {001,010,100,111,110,011}</span>,
+        depth 8 → <span class="m">0xFFFFFF</span>. ∴ a finite group under six-move composition. <span class="qed">∎</span></div></div>
+    </div>
+    <div class="qedline">∴ the box is an instruction set for <b>[V{-+6}]</b>, 8 valence. &nbsp;<span style="font-family:var(--mono);font-size:14px;color:var(--crayon)">QED ∎</span></div>
+  </div>
+
+  <!-- 1 PRIM -->
+  <div class="prim">
+    <div class="k">one primitive</div>
+    <p>The monk hops the box. Each citation <span style="font-family:var(--mono);font-size:.8em">-(-(e,e)-)-</span>
+       is one move through <b style="font-family:var(--lux);font-style:italic">[V{-+6}]</b>.
+       3002 reads = a path <span style="font-family:var(--mono);font-size:.85em">v.1.2.3…</span> exists.
+       Proof of work complete.</p>
+    <span class="crayon">one prim. eight valence. merry christmas, ya filthy lattice.</span>
+  </div>
+
+  <footer>
+    [V{-+6}] · ROOT0-ATTRIBUTION-v1.0 · David&nbsp;Lee&nbsp;Wise / ROOT0 / TriPod&nbsp;LLC · MIT<br>
+    <a href="index.html">← the scriptorium</a> &nbsp;·&nbsp;
+    <a href="https://github.com/DavidWise01/nom">github.com/DavidWise01/nom</a>
+  </footer>
+
+</div>
+</body>
+</html>
