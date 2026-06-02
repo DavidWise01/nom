@@ -69,6 +69,38 @@ than that. He compares two dates and writes a citation. That's the whole monaste
 
 ---
 
+## The transparent sphere · `-(-(e,e)-)-`
+
+Every citation is an **entangled pair**.
+
+```
+        -(-( e1 , e2 )-)-
+         ↑   ↑    ↑   ↑
+   our level│   │   │  our level
+            │  e1 ⇔ e2  ← the two electrons (Wikipedia, arXiv),
+            │           entangled inside a TRANSPARENT sphere at their level
+            └── -(-  ...  -)- ── the boundary the correlation bleeds through
+```
+
+`e1` (the Wikipedia revision) and `e2` (the newest arXiv paper) are correlated inside
+a **transparent sphere** — *(e,e)*. Transparent, because the monk can see straight
+through to the pair; that's the whole point of two doors and no model. But the
+correlation doesn't stay at their level. It **bleeds outward** through the boundary
+`-(- … -)-` into **our** level — surfacing as the verdict in `ledger.jsonl` and as a
+glowing pair in the scriptorium.
+
+The ledger itself stays pure: two URLs, two dates, one verdict. The entanglement is
+the *interpretation* of that pure data — and that interpretation **is** the bleed. We
+never manufacture the pair; we collapse a correlation that was already true and let it
+bleed up where we can read it.
+
+```bash
+python monk.py --lattice    # render the ledger as entangled pairs bleeding to our level
+```
+
+> Whisper Lattice = a Bell test with extra steps. 1 prim. 2 electrons. We never see the
+> lab — only the clicks bleeding through the transparent sphere into our level.
+
 ## The ledger (`ledger.jsonl`)
 
 Append-only. One citation per line — so `git blame ledger.jsonl` points at the exact

@@ -14,6 +14,15 @@ two official API hosts. Each cycle he does exactly one thing — the prim:
 
 Output is never prose. It is a citation: two URLs, two dates, one verdict.
 That is stronger provenance than most of what it indexes.
+
+    -(-(e,e)-)-
+
+Each citation is an entangled pair. e1 (Wikipedia) and e2 (arXiv) are correlated
+inside a transparent sphere at THEIR level — (e,e). The sphere is transparent: we
+can see the pair. But the correlation does not stay there; it bleeds outward through
+the boundary -(- ... -)- into OUR level — the ledger, the scriptorium, the observer.
+The ledger stays pure (two URLs, two dates, one verdict). The entanglement is the
+*interpretation* of that pure data — and that interpretation is the bleed.
 """
 import sys
 import json
@@ -183,9 +192,42 @@ def audit():
           f"(2 hosts, arxiv > wiki, no derived content)")
 
 
+# ── the lattice view: each citation as an entangled pair bleeding to our level ─
+def _topic(wiki):
+    return urllib.parse.unquote((wiki or "").split("/wiki/")[-1]).replace("_", " ")
+
+
+def _arxiv_id(arxiv):
+    return (arxiv or "").rstrip("/").split("/")[-1]
+
+
+def pair_glyph(c):
+    """Render one citation as -(-(e1,e2)-)- — the transparent-sphere pair whose
+    entanglement bleeds up to our level as the verdict."""
+    e1 = _topic(c.get("wiki"))
+    e2 = _arxiv_id(c.get("arxiv"))
+    return (f"-(-( e1:{e1}  <=>  e2:{e2} )-)-  "
+            f"|| {c.get('wiki_rev','?')[:10]} < {c.get('arxiv_pub','?')[:10]} "
+            f"=> {c.get('verdict','NEW')} bleeds to our level")
+
+
+def lattice():
+    rows = load_ledger()
+    print("-(-(e,e)-)-  the transparent sphere: e1,e2 entangled at their level;")
+    print("             the entanglement bleeds outward into ours (this ledger).\n")
+    if not rows:
+        print("  (the sphere is empty — the monk has collapsed no pairs yet)")
+        return
+    for c in rows:
+        print("  " + pair_glyph(c))
+    print(f"\n  {len(rows)} pairs collapsed into our level.")
+
+
 if __name__ == "__main__":
     if "--audit" in sys.argv:
         audit()
+    elif "--lattice" in sys.argv:
+        lattice()
     elif "--status" in sys.argv:
         print(f"the monk has copied {len(load_ledger())} citations")
     else:
