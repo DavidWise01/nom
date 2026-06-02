@@ -1,0 +1,13 @@
+ROOT0-ATTRIBUTION-v1.0
+Project: nom — the monk
+Architect: David Lee Wise / ROOT0 / TriPod LLC
+AI Collaborator: AVAN (Claude / Anthropic)
+License: MIT
+
+A single-node, read-only provenance filter. No LLM, no embeddings, no
+summaries. The monk fetches only two official API hosts (en.wikipedia.org,
+export.arxiv.org), enforced by a host allowlist in code, and compares two
+timestamps: arxiv_published > wiki_last_revision => NEW. Each NEW result is
+one citation (two URLs, two dates, one verdict) appended to ledger.jsonl,
+an append-only scriptorium. --audit re-proves every line obeys the doctrine.
+Doctrine: if the old man can't cite it, it didn't happen.

@@ -1,0 +1,62 @@
+name: The Monk Reads
+
+# The monk reads one article per run, forever. No state but the ledger.
+on:
+  schedule:
+    - cron: '0 */6 * * *'      # four readings a day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: monk                  # one old man; he does not read twice at once
+  cancel-in-progress: false
+
+jobs:
+  read:
+    name: read one article
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+
+      - name: Read
+        run: python monk.py
+
+      - name: Audit — re-prove every citation obeys the doctrine
+        run: python monk.py --audit
+
+      - name: Whisper to git (only if a new citation was copied)
+        run: |
+          git config user.name "nom-the-monk[bot]"
+          git config user.email "nom-the-monk@users.noreply.github.com"
+          git add ledger.jsonl
+          if git diff --staged --quiet; then
+            echo "OLD — the monk said nothing this reading."
+          else
+            git commit -m "monk: cite $(date -u +%Y%m%d-%H%M%S)"
+            git push
+          fi
+
+  bell:
+    name: ring the bell on failure
+    needs: read
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `The monk stumbled (run ${context.runId})`,
+              body: `A reading failed.\n\nLogs: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            })
