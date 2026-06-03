@@ -40,7 +40,8 @@ UA = "nom-the-monk/1.0 (+https://github.com/DavidWise01/nom; read-only provenanc
 
 # ── the only two things the old man can read ─────────────────────────────────
 WIKI_HOST = "en.wikipedia.org"
-ARXIV_HOST = "export.arxiv.org"
+ARXIV_HOST = "export.arxiv.org"      # the API / harvest host (where the monk queries)
+ARXIV_LINK_HOST = "arxiv.org"        # the canonical abstract host (what a citation links to)
 ALLOWED = {WIKI_HOST, ARXIV_HOST}
 
 WIKI_API = f"https://{WIKI_HOST}/w/api.php"
@@ -108,8 +109,12 @@ def newest_arxiv(term):
         entry = ET.fromstring(r.text).find("a:entry", ns)
         if entry is None:
             return None
+        # arXiv returns the id as http://arxiv.org/abs/...  (the API host is only for
+        # querying). Canonicalize the stored link: https + the public abstract host.
+        aid = entry.findtext("a:id", default="", namespaces=ns).strip()
+        aid = aid.replace("http://", "https://", 1).replace("export.arxiv.org", ARXIV_LINK_HOST)
         return {
-            "url": entry.findtext("a:id", default="", namespaces=ns).strip(),
+            "url": aid,
             "title": " ".join(entry.findtext("a:title", default="", namespaces=ns).split()),
             "published": entry.findtext("a:published", default="", namespaces=ns).strip(),
         }
@@ -184,7 +189,7 @@ def audit():
         wh = urllib.parse.urlparse(c["wiki"]).hostname
         ah = urllib.parse.urlparse(c["arxiv"]).hostname
         assert wh == WIKI_HOST, f"line {i}: wiki host {wh} not {WIKI_HOST}"
-        assert ah == ARXIV_HOST, f"line {i}: arxiv host {ah} not {ARXIV_HOST}"
+        assert ah == ARXIV_LINK_HOST, f"line {i}: arxiv host {ah} not {ARXIV_LINK_HOST}"
         assert c["verdict"] == "NEW", f"line {i}: verdict not NEW"
         assert parse_iso(c["arxiv_pub"]) > parse_iso(c["wiki_rev"]), \
             f"line {i}: arxiv not newer than wiki — doctrine violated"
