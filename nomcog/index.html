@@ -28,9 +28,19 @@ pre{border:1px solid var(--line);padding:18px;overflow:auto;border-radius:8px}
 <pre>Exterior -> Cortex -> Core
 Exterior <- Cortex
 Direct Exterior/Core access: denied</pre>
-<h2>Verification</h2>
+<h2>Formal verification</h2>
 <p>Machine-check the <a href="nomcog_final_freeze_manifest.lean">Lean freeze manifest</a>.
 The manifest accepts only when all six stages are true.</p>
+<h2>Executable runtime</h2>
+<p>R001–R010 are frozen as the local-only executable body.</p>
+<pre>Ingress -> State -> Cognition -> Governance -> Egress
+
+9 dependency hashes verified
+68 component tests passed
+7 integrated checks passed
+75 total tests · exit code 0</pre>
+<p><a href="runtime/executable/manifest.json">Canonical manifest</a> ·
+<a href="https://github.com/DavidWise01/nom/tree/main/nomcog/runtime/executable">Executable source</a></p>
 <p><a href="../">Back to nom</a> · <a href="https://github.com/DavidWise01/nom">Source</a></p>
 </main>
 </html>
