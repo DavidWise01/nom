@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NOMCOG · nom</title>
+<style>
+:root{color-scheme:dark;--bg:#101216;--fg:#e8edf2;--muted:#8d98a5;--line:#33404c;--on:#62e6a7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,sans-serif}
+main{max-width:760px;margin:auto;padding:48px 22px}h1{letter-spacing:.12em;font-size:clamp(32px,8vw,64px);margin:0}
+h2{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:44px}
+p{color:#c8d0d8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.card{border:1px solid var(--line);padding:15px;border-radius:8px}.card b{display:block;font-size:24px;color:var(--on)}
+code{color:var(--on)}a{color:var(--on)}
+pre{border:1px solid var(--line);padding:18px;overflow:auto;border-radius:8px}
+</style>
+<main>
+<h1>NOMCOG</h1>
+<p>Nom's bounded cognitive layer: attention, observation, memory, cognition, orchestration, and governance.</p>
+<section class="grid">
+<div class="card"><b>N</b>Attention · frozen</div>
+<div class="card"><b>O</b>Observation · frozen</div>
+<div class="card"><b>M</b>Memory · frozen</div>
+<div class="card"><b>C</b>Cognition · frozen</div>
+<div class="card"><b>O</b>Orchestration · frozen</div>
+<div class="card"><b>G</b>Governance · frozen</div>
+</section>
+<h2>Boundary</h2>
+<pre>Exterior -> Cortex -> Core
+Exterior <- Cortex
+Direct Exterior/Core access: denied</pre>
+<h2>Verification</h2>
+<p>Machine-check the <a href="nomcog_final_freeze_manifest.lean">Lean freeze manifest</a>.
+The manifest accepts only when all six stages are true.</p>
+<p><a href="../">Back to nom</a> · <a href="https://github.com/DavidWise01/nom">Source</a></p>
+</main>
+</html>
