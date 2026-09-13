@@ -1,0 +1,92 @@
+{
+  "schema": "NOMCOG-EXECUTABLE-RUNTIME-v1",
+  "status": "frozen",
+  "repository": "DavidWise01/nom",
+  "path": "nomcog/runtime/executable",
+  "identity_anchor": 17,
+  "provenance_anchor": 131,
+  "carrier_width": 4,
+  "register_size": 256,
+  "session_capacity": 8,
+  "fault_limit": 3,
+  "network": "disabled",
+  "formal_layer": "nomcog/runtime/nomcog_runtime_body_capstone.lean",
+  "verification": {
+    "platform": "Windows Python 3.11",
+    "result": "exit code 0",
+    "capstone_tests": 75,
+    "dependency_hashes_verified": 9
+  },
+  "files": [
+    {
+      "stage": "R001",
+      "file": "nomcog_r001_executable_cycle.py",
+      "sha256": "1bb72df9ca3a6599103ff6daf2918aacfc64e86da21d6db2be81add40645ed2e",
+      "tests": 8,
+      "function": "five-stage executable cycle"
+    },
+    {
+      "stage": "R002",
+      "file": "nomcog_r002_bounded_session.py",
+      "sha256": "23c9da657ecfeb41e8c78f1450d4e2a6854295d027bfa63965499d9a5129a663",
+      "tests": 6,
+      "function": "bounded transactional session"
+    },
+    {
+      "stage": "R003",
+      "file": "nomcog_r003_audit_journal.py",
+      "sha256": "c830aa113c42dc3350e519d3d1baa75bbbd0585cc6f4f28645b22b4574d5a855",
+      "tests": 7,
+      "function": "append-only hash-linked audit journal"
+    },
+    {
+      "stage": "R004",
+      "file": "nomcog_r004_checkpoint_recovery.py",
+      "sha256": "a4195dfca045108dbd1e43a616986a00550ea5ae9e783843c97ce213da0ffb65",
+      "tests": 7,
+      "function": "exact checkpoint recovery"
+    },
+    {
+      "stage": "R005",
+      "file": "nomcog_r005_atomic_checkpoint_store.py",
+      "sha256": "2454cd6c2eacadb0fa04e38c9599d3dda08e6862966fc4fdd80ea844ab8732a0",
+      "tests": 7,
+      "function": "atomic local checkpoint persistence"
+    },
+    {
+      "stage": "R006",
+      "file": "nomcog_r006_local_control_boundary.py",
+      "sha256": "a5a1c97646916851ecfc9035dc735514438a4fa6f374037bced0ae84c40b44df",
+      "tests": 10,
+      "function": "governed local control boundary"
+    },
+    {
+      "stage": "R007",
+      "file": "nomcog_r007_deterministic_scheduler.py",
+      "sha256": "4259f1c1e2e36790c433668f003e3644726a09e59a758aead2f9547ac0c1084b",
+      "tests": 8,
+      "function": "bounded deterministic single-writer scheduler"
+    },
+    {
+      "stage": "R008",
+      "file": "nomcog_r008_fault_convergence.py",
+      "sha256": "49ae216b71802a2c78f9ac91b27be54a8df11eaae48cc95431b58c94cffed947",
+      "tests": 7,
+      "function": "fault convergence and circuit halt"
+    },
+    {
+      "stage": "R009",
+      "file": "nomcog_r009_controlled_recovery.py",
+      "sha256": "4ab04b9d766a558250212f959d41312d924b60cc4e4f239283e5b5af06a5d4c4",
+      "tests": 8,
+      "function": "witnessed controlled recovery"
+    },
+    {
+      "stage": "R010",
+      "file": "nomcog_r010_executable_capstone.py",
+      "sha256": "feb8194640e32be06827e42ce755fcd7408af73d4aa592fe9ff632704c3ff427",
+      "tests": 75,
+      "function": "dependency seal and integrated executable capstone"
+    }
+  ]
+}
