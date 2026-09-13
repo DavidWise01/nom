@@ -1,4 +1,6 @@
-# NOMCOG executable runtime
+# Posi v00.01 — NOMCOG executable runtime
+
+**Status: immutable frozen baseline**
 
 This directory is the canonical executable body layered beneath the frozen
 NOMCOG cognitive specification and its Lean runtime closure.
@@ -53,5 +55,7 @@ Canonical result:
 - 75 total tests passed
 - exit code `0`
 
-`manifest.json` is the canonical hash and verification register. R001 through
-R010 are append-only frozen artifacts; later work belongs in new files.
+`manifest.json` is the canonical hash and verification register.
+`POSI_v00.01_FREEZE.json` binds this baseline to its content-addressed Git
+commit. R001 through R010 are immutable; successors must use a new version and
+new files.
