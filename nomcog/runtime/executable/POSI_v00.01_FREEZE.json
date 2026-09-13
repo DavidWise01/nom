@@ -1,0 +1,40 @@
+{
+  "schema": "POSI-FREEZE-v1",
+  "name": "Posi",
+  "version": "00.01",
+  "designation": "Posi v00.01",
+  "state": "immutable",
+  "scope": "NOMCOG formal and executable runtime baseline",
+  "repository": "DavidWise01/nom",
+  "canonical_path": "nomcog/runtime/executable",
+  "stable_ref": "posi-v00.01",
+  "sealed_parent_commit": "aac18870dfbc12a20bd7b1e220336286ac887873",
+  "formal_capstone": "nomcog/runtime/nomcog_runtime_body_capstone.lean",
+  "executable_capstone": {
+    "file": "nomcog_r010_executable_capstone.py",
+    "sha256": "feb8194640e32be06827e42ce755fcd7408af73d4aa592fe9ff632704c3ff427"
+  },
+  "canonical_manifest": {
+    "file": "manifest.json",
+    "sha256": "ebb5588a22c644f13f674d9c11cf476d16ac8847e8c8196d89f2ff21c108ffd8"
+  },
+  "verification": {
+    "windows_exit_code": 0,
+    "frozen_dependency_hashes": "9/9",
+    "component_tests": "68/68",
+    "integration_tests": "7/7",
+    "total_tests": "75/75",
+    "github_readback": "12/12 exact"
+  },
+  "invariants": {
+    "identity_anchor": 17,
+    "provenance_anchor": 131,
+    "register_size": 256,
+    "carrier_width": 4,
+    "session_capacity": 8,
+    "fault_limit": 3,
+    "network": "disabled"
+  },
+  "immutability_rule": "R001-R010 and this version are never edited; every successor uses a new version and new files.",
+  "verification_rule": "Verify the content-addressed seal commit and all SHA-256 values before execution."
+}
