@@ -33,13 +33,16 @@ jobs:
       - name: Audit — re-prove every citation obeys the doctrine
         run: python monk.py --audit
 
+      - name: Ground one old citation against live sources + 0root evidence law
+        run: python monk.py --ground-one
+
       - name: Whisper to git (only if a new citation was copied)
         run: |
           git config user.name "nom-the-monk[bot]"
           git config user.email "nom-the-monk@users.noreply.github.com"
-          git add ledger.jsonl
+          git add ledger.jsonl ground_truth.jsonl
           if git diff --staged --quiet; then
-            echo "OLD — the monk said nothing this reading."
+            echo "QUIET — no new citation and no new grounding receipt."
           else
             git commit -m "monk: cite $(date -u +%Y%m%d-%H%M%S)"
             git push
