@@ -35,26 +35,29 @@ import requests
 
 ROOT = Path(__file__).parent
 LEDGER = ROOT / "ledger.jsonl"
+GROUND = ROOT / "ground_truth.jsonl"
+ZERO_ROOT_POLICY = "https://0root.ai/llms.txt"
 
 UA = "nom-the-monk/1.0 (+https://github.com/DavidWise01/nom; read-only provenance filter)"
 
-# ── the only two things the old man can read ─────────────────────────────────
+# ── the old man still has two research doors; 0root is his grounding law ────
 WIKI_HOST = "en.wikipedia.org"
 ARXIV_HOST = "export.arxiv.org"      # the API / harvest host (where the monk queries)
 ARXIV_LINK_HOST = "arxiv.org"        # the canonical abstract host (what a citation links to)
-ALLOWED = {WIKI_HOST, ARXIV_HOST}
+ZERO_ROOT_HOST = "0root.ai"
+ALLOWED = {WIKI_HOST, ARXIV_HOST, ZERO_ROOT_HOST}
 
 WIKI_API = f"https://{WIKI_HOST}/w/api.php"
 ARXIV_API = f"https://{ARXIV_HOST}/api/query"
 
 
 class CannotRead(PermissionError):
-    """The monk tried to read something outside the two sacred hosts."""
+    """The monk tried to read something outside his two research doors + grounding host."""
 
 
 def GET(url, params=None, timeout=20):
     """Every fetch the monk ever makes passes through here. Read-only, and the
-    host MUST be one of the two allowed domains — otherwise it does not exist."""
+    host MUST be one of the allowed domains — otherwise it does not exist."""
     full = url
     if params:
         full = url + "?" + urllib.parse.urlencode(params)
@@ -177,6 +180,135 @@ def read():
     return "NEW"
 
 
+
+# ── slow grounding walk -------------------------------------------------------
+def load_ground():
+    if not GROUND.exists():
+        return []
+    out = []
+    for line in GROUND.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line:
+            out.append(json.loads(line))
+    return out
+
+
+def ground_key(c):
+    return (c.get("wiki"), c.get("arxiv"))
+
+
+def fetch_0root_policy():
+    """Read the current 0root evidence law. This is policy/provenance, not an
+    authority that can magically turn a claim into truth."""
+    import hashlib
+    try:
+        r = GET(ZERO_ROOT_POLICY, timeout=20)
+        text = r.text
+        return {
+            "url": ZERO_ROOT_POLICY,
+            "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+            "retrieved": now(),
+            "has_lit": "LIT:" in text,
+            "has_amber": "AMBER:" in text,
+            "has_wall": "WALL:" in text,
+        }
+    except Exception as e:
+        return {"url": ZERO_ROOT_POLICY, "retrieved": now(), "error": str(e)}
+
+
+def arxiv_exact(arxiv_url):
+    """Re-read the exact cited arXiv id through export.arxiv.org."""
+    aid = (arxiv_url or "").rstrip("/").split("/")[-1]
+    if not aid:
+        return None
+    try:
+        r = GET(ARXIV_API, params={"id_list": aid, "max_results": 1})
+        ns = {"a": "http://www.w3.org/2005/Atom"}
+        entry = ET.fromstring(r.text).find("a:entry", ns)
+        if entry is None:
+            return None
+        return {
+            "id": aid,
+            "title": " ".join(entry.findtext("a:title", default="", namespaces=ns).split()),
+            "published": entry.findtext("a:published", default="", namespaces=ns).strip(),
+            "updated": entry.findtext("a:updated", default="", namespaces=ns).strip(),
+        }
+    except Exception:
+        return None
+
+
+def title_from_wiki_url(url):
+    raw = (url or "").split("/wiki/")[-1]
+    return urllib.parse.unquote(raw).replace("_", " ")
+
+
+def ground_one():
+    """Re-check exactly one historical citation per run.
+
+    This never rewrites ledger.jsonl. It appends a receipt describing what can
+    actually be established now:
+      LIT   deterministic live facts re-read from the sources
+      AMBER sourced/assigned interpretation
+      WALL  unsupported gap, especially semantic relevance / truth correction
+    """
+    rows = load_ledger()
+    done = {ground_key(x) for x in load_ground()}
+    target = next((c for c in rows if ground_key(c) not in done), None)
+    if target is None:
+        print("ground: complete — every current citation has a grounding receipt")
+        return "COMPLETE"
+
+    title = title_from_wiki_url(target.get("wiki"))
+    live_wiki = wiki_last_revision(title)
+    exact = arxiv_exact(target.get("arxiv"))
+    policy = fetch_0root_policy()
+
+    lit_checks = {
+        "wiki_revision_read": bool(live_wiki),
+        "arxiv_record_read": bool(exact and exact.get("published")),
+        "stored_timestamp_order":
+            bool(target.get("wiki_rev") and target.get("arxiv_pub"))
+            and parse_iso(target["arxiv_pub"]) > parse_iso(target["wiki_rev"]),
+    }
+    lit = all(lit_checks.values())
+
+    receipt = {
+        "grounded": now(),
+        "wiki": target.get("wiki"),
+        "arxiv": target.get("arxiv"),
+        "original_verdict": target.get("verdict"),
+        "original_read": target.get("read"),
+        "status": {
+            "timestamp_relation": "LIT" if lit else "WALL",
+            "source_pair": "AMBER" if lit else "WALL",
+            "semantic_relevance": "WALL",
+            "truth_correction": "WALL",
+        },
+        "checks": lit_checks,
+        "live": {
+            "wiki_rev": live_wiki,
+            "arxiv_published": exact.get("published") if exact else None,
+            "arxiv_updated": exact.get("updated") if exact else None,
+            "arxiv_title": exact.get("title") if exact else None,
+        },
+        "0root_policy": policy,
+        "note": (
+            "NOM re-proved source existence/timestamps only. "
+            "A newer arXiv timestamp does not establish that the paper is relevant "
+            "to, corrects, or supersedes the Wikipedia article."
+        ),
+    }
+    with GROUND.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(receipt, sort_keys=True) + "\n")
+    print(
+        "ground: "
+        + receipt["status"]["timestamp_relation"]
+        + " timestamps; AMBER pair; WALL relevance/truth — "
+        + title
+    )
+    return receipt["status"]["timestamp_relation"]
+
+
 # ── the audit: re-prove the doctrine over the whole ledger ───────────────────
 REQUIRED = {"wiki", "wiki_rev", "arxiv", "arxiv_title", "arxiv_pub", "verdict", "read"}
 
@@ -229,7 +361,9 @@ def lattice():
 
 
 if __name__ == "__main__":
-    if "--audit" in sys.argv:
+    if "--ground-one" in sys.argv:
+        ground_one()
+    elif "--audit" in sys.argv:
         audit()
     elif "--lattice" in sys.argv:
         lattice()
