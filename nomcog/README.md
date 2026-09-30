@@ -61,3 +61,14 @@ $LASTEXITCODE
 
 Canonical result: 9 dependency hashes verified, 68 component tests passed,
 7 integrated checks passed, and exit code `0`.
+
+## OaSIs tether
+
+NOMCOG is reciprocally tethered to the OaSIs **AE Hierarchical Generative Kernel v178**.
+
+- Public page: https://davidwise01.github.io/oasis/architecture/ae-generative-v178/
+- OaSIs kernel: https://github.com/DavidWise01/oasis/tree/main/kernel/generative/ae-hierarchical-v178
+- OaSIs witness commit: `094bcff5f9ff9dae2fc1baf22ed4597567a3bf28`
+- Tether record: [`OASIS_TETHER_v178.json`](OASIS_TETHER_v178.json)
+
+The tether is an identity/witness relation. It does **not** merge authority, rewrite NOM/Posi, or permit direct Exterior/Core access.

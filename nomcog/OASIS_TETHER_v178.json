@@ -1,0 +1,29 @@
+{
+  "schema": "nom.nomcog.oasis.tether.v178",
+  "status": "RECIPROCAL / APPEND-ONLY / AUTHORITY-SEPARATE",
+  "source": {
+    "repo": "DavidWise01/nom",
+    "branch": "main",
+    "observed_commit": "4c7bca85b1fad9ba5cd03f85cadbea2ddf91344a",
+    "page": "https://davidwise01.github.io/nom/",
+    "nomcog_page": "https://davidwise01.github.io/nom/nomcog/",
+    "executable": "nomcog/runtime/executable",
+    "posi": "Posi v00.01"
+  },
+  "peer": {
+    "repo": "DavidWise01/oasis",
+    "branch": "main",
+    "observed_commit": "094bcff5f9ff9dae2fc1baf22ed4597567a3bf28",
+    "page": "https://davidwise01.github.io/oasis/architecture/ae-generative-v178/",
+    "kernel": "kernel/generative/ae-hierarchical-v178/",
+    "frozen_parent": "kernel/frozen/ae-generative-first-v92/",
+    "frozen_canon_sha256": "8f2be8951098c7e1764c3c0f5bba982fb3fd8c71f094924b79d0172a313a7bf8"
+  },
+  "contract": {
+    "relation": "cross-repo identity/witness tether",
+    "merge_authority": false,
+    "direct_exterior_core_access": false,
+    "mutate_nom_baseline": false,
+    "mutate_oasis_frozen_parent": false
+  }
+}
