@@ -44,6 +44,20 @@ The manifest accepts only when all six stages are true.</p>
 <a href="runtime/executable/POSI_v00.01_FREEZE.json">Posi v00.01 freeze</a> ·
 <a href="https://github.com/DavidWise01/nom/tree/main/nomcog/runtime/executable">Executable source</a></p>
 
+
+<h2>OaSIs witness bridge v179</h2>
+<p>The reciprocal tether now has a local receipt verifier. OaSIs generates a hash-linked state receipt; NOMCOG verifies it without enabling network access or modifying Posi v00.01.</p>
+<pre>OaSIs state -> v179 receipt -> NOMCOG local verify
+                           -> PASS / REJECT
+
+identity anchor   17
+provenance anchor 131
+network           disabled
+lane map          UNBOUND unless explicit bijection</pre>
+<p><a href="https://davidwise01.github.io/oasis/architecture/ae-generative-v179/">AE v179 page</a> ·
+<a href="bridges/oasis-v179/OASIS_WITNESS_TETHER_v179.json">v179 tether</a> ·
+<a href="https://github.com/DavidWise01/nom/tree/main/nomcog/bridges/oasis-v179">verifier source</a></p>
+
 <h2>OaSIs tether</h2>
 <p>NOMCOG is reciprocally tethered to the OaSIs <strong>AE Hierarchical Generative Kernel v178</strong>. The tether records identity and witness lineage only; it does not merge authority or mutate either frozen baseline.</p>
 <pre>OaSIs / AE v178

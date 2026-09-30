@@ -1,0 +1,29 @@
+name: NOMCOG OaSIs v179 Witness Bridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "nomcog/bridges/oasis-v179/**"
+      - ".github/workflows/nomcog-oasis-v179.yml"
+  pull_request:
+    paths:
+      - "nomcog/bridges/oasis-v179/**"
+      - ".github/workflows/nomcog-oasis-v179.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  local-verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Self-test OaSIs v179 witness verifier
+        working-directory: nomcog/bridges/oasis-v179
+        run: python verifier.py --self-test

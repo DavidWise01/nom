@@ -1,0 +1,29 @@
+{
+  "schema": "nom.nomcog.oasis.witness.tether.v179",
+  "status": "LOCAL-VERIFY / RECIPROCAL / AUTHORITY-SEPARATE",
+  "nom": {
+    "repo": "DavidWise01/nom",
+    "posi": "Posi v00.01",
+    "stable_ref": "posi-v00.01",
+    "identity_anchor": 17,
+    "provenance_anchor": 131,
+    "network": "disabled",
+    "frozen_runtime": "nomcog/runtime/executable",
+    "bridge": "nomcog/bridges/oasis-v179/"
+  },
+  "oasis": {
+    "repo": "DavidWise01/oasis",
+    "kernel_commit": "2c1c9eabe99a3221fbf8840a51b2f4adbc07120c",
+    "page_commit": "09275db82615c1eee702292f5b69b5622ae422ee",
+    "page": "https://davidwise01.github.io/oasis/architecture/ae-generative-v179/",
+    "kernel": "kernel/generative/ae-witness-v179/",
+    "receipt_schema": "oasis.ae.witness.receipt.v179"
+  },
+  "rules": {
+    "runtime_network": false,
+    "mutate_posi": false,
+    "mutate_oasis_frozen_parent": false,
+    "preserve_unbound_mapping": true,
+    "reject_false_bound_mapping": true
+  }
+}

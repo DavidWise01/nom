@@ -72,3 +72,16 @@ NOMCOG is reciprocally tethered to the OaSIs **AE Hierarchical Generative Kernel
 - Tether record: [`OASIS_TETHER_v178.json`](OASIS_TETHER_v178.json)
 
 The tether is an identity/witness relation. It does **not** merge authority, rewrite NOM/Posi, or permit direct Exterior/Core access.
+
+
+## OaSIs witness bridge v179
+
+The reciprocal OaSIs tether now has a local verifier under:
+
+    nomcog/bridges/oasis-v179/
+
+It verifies AE v179 receipt IDs/seals, anchors 17/131, disabled network status, STOP coherence, and lane-binding coherence without modifying frozen Posi v00.01.
+
+Public peer page:
+
+    https://davidwise01.github.io/oasis/architecture/ae-generative-v179/
