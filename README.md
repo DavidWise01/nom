@@ -156,3 +156,11 @@ and commits **only when a new citation is found** — otherwise the monk says no
 ```
 ROOT0-ATTRIBUTION-v1.0 · nom — the monk · David Lee Wise / ROOT0 / TriPod LLC · MIT
 ```
+
+---
+
+## TESSY QUANTA — external operations console
+
+[TESSY QUANTA Operations](https://davidwise01.github.io/oasis/docs/tessy/) is a separate **OASIS-owned** state/space/time machine. It can read NOM's public timestamp ledger **read-only** as an independent timestamp witness. NOM does not run Tessy's predictions, accept commands from Tessy, or become a general-purpose observer of unapproved hosts. NOM's two-door source restriction, citation doctrine, ledger, workflows and grounded-receipt rules remain unchanged.
+
+[Quanta alignment and readiness](https://github.com/DavidWise01/oasis/blob/main/docs/mnp-3d/QUANTA_CORPUS_ALIGNMENT_V1.md) · [NOM public ledger](./ledger.jsonl) · [Grounded receipts](./ground_truth.jsonl)
